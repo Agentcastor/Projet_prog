@@ -25,9 +25,13 @@ public class TileManager {
 	GamePanel m_gp;			//panel du jeu principal
 	Tile[] m_tile;			//tableau de toutes les tiles possibles dans le jeu
 	int m_maxTiles = 10;	//nombre maximum de tiles chargeable dans le jeu
+<<<<<<< HEAD
 	int m_mapTileNum[][];	//rÃ©partition des tiles dans la carte du jeu
 	BufferedImage background;
 	LinkedList<Entity> listEntity;
+=======
+	int m_mapTileNum[][];	//répartition des tiles dans la carte du jeu
+>>>>>>> parent of cff2447 (Modification commentaires)
 	
 	/**
 	 * Constructeur
@@ -120,7 +124,7 @@ public class TileManager {
 			int col = 0;
 			int row = 0;
 			
-			// Parcourir le fichier txt pour rÃ©cupÃ©rer les valeurs
+			// Parcourir le fichier txt pour récupérer les valeurs
 			while (col < m_gp.MAX_SCREEN_COL && row < m_gp.MAX_SCREE_ROW) {
 				String line = br.readLine();
 				while (col < m_gp.MAX_SCREEN_COL) {
@@ -142,7 +146,7 @@ public class TileManager {
 	}
 	
 	/**
-	 * Affichage de la carte avec les diffÃ©rentes tuiles
+	 * Affichage de la carte avec les différentes tuiles
 	 * @param g2
 	 */
 	public void draw(Graphics2D g2) {
