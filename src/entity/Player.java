@@ -19,6 +19,11 @@ public class Player extends LivingEntity{
 	//private int countDownDamage;
 	//private int invulnerability;
 
+	//mouvements
+	private boolean r;
+	private boolean l;
+	private boolean j;
+
 	/**
 	 * Constructeur de Player
 	 * @param tm Tilemanager, salle de jeu
@@ -35,36 +40,50 @@ public class Player extends LivingEntity{
 	// Méthodes pour sauter
 	public void mouvement(){
 		if(m_keyH.getCode() == 68){
+			r = true;
+		}
+		else if(m_keyH.getCode() == 680){
+			r = false;
+		}
+
+		if(m_keyH.getCode() == 81){
+			l = true;
+		}
+		else if(m_keyH.getCode() == 810){
+			l = false;
+		}
+
+		if(m_keyH.getCode() == 90){
+			j = true;
+		}
+		else if(m_keyH.getCode() == 900){
+			j = false;
+		}
+
+		if(r){
 			moveRight();
 		}
-		if(m_keyH.getCode() == 81){
+		if(l){
 			moveLeft();
 		}
-		/* if(m_keyH.getCode() == 90){
-			moveUp();
-		}
-		if(m_keyH.getCode() == 83){
-			moveDown();
-		} */
 	}
 
-    public void tombe(){
-        if(!m_jumping){
-            moveDown();
-        }
-    }
     public void gravity(){
-        if(m_keyH.getCode() == 32){ // Si on appuie sur la touche espace 
-            m_jumping = true;
-        }
-		else {
-			tombe();
+        if(getOnFloor()){
+			if(!m_jumping && j){// Si on appuie sur la touche espace et qu'on ne saute pas
+				m_jumping = true;
+			} 
+		} 
+		else {//on est pas au sol donc on tombe
+			if(!m_jumping){
+				moveDown();//tomber à vitesse expo
+			}
 		}
 
         if(m_jumping) {
             moveUp();
-            m_jumpDistance += 1;
-            if(m_jumpDistance >= m_maxJumpDistance) { // On doit s'arrêter de sauter
+            m_jumpDistance += 1; //sauter à vitesse 1/expo
+            if(m_jumpDistance >= m_maxJumpDistance || getOnCeil()|| (!j&&m_jumpDistance >= m_maxJumpDistance/2)) { // On doit s'arrêter de sauter
                 m_jumping = false;
                 m_jumpDistance = 0; // On réinitialise la distance parcourue
             }
