@@ -3,11 +3,6 @@ package entity;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
-import main.GamePanel;
 import main.KeyHandler;
 import tile.TileManager;
 
@@ -15,7 +10,7 @@ import tile.TileManager;
  * Défintition du comportement d'un joueur
  *
  */
-public class Player extends MovingEntity{
+public class Player extends LivingEntity{
 	KeyHandler m_keyH;
 	private boolean m_jumping; // true si le joueur est en train de sauter
 	private int m_jumpDistance; // Distance verticale parcourue dans un saut

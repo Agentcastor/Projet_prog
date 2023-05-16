@@ -4,26 +4,19 @@ import java.lang.Math;
 import main.GamePanel;
 import tile.TileManager;
 
-public abstract class MovingEntity extends Entity{ // Classe des entités qui se déplacent
-    private int m_life; // Vie de l'entité
+public abstract class MovingEntity extends Entity { // Classe des entités qui se déplacent
+   
     private int m_speedX, m_speedY; // Déplacement horizontal et vertical de l'entité
     private int m_damage; // Dégâts causés par l'entité
 
     public MovingEntity(int x, int y, String path, TileManager tm, int life, int speedX, int speedY, int damage){
         super(x,y,path,tm);
-        m_life = life;
         m_speedX = speedX;
         m_speedY = speedY;
         m_damage = damage;
     }
 
-    public int getLife() {
-        return m_life;
-    }
-
-    public void setLife(int life) {
-        m_life = life;
-    }
+   
 
     public int getSpeedX() {
         return m_speedX;
@@ -118,12 +111,5 @@ public abstract class MovingEntity extends Entity{ // Classe des entités qui se
 
     }
 
-    //Taper
-    public void hit(MovingEntity e){
-        e.setLife(e.getLife()-m_damage);
-    }
-
-    public boolean isDead(){
-        return m_life <= 0;
-    }
+   
 }
