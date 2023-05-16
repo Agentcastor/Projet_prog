@@ -11,7 +11,7 @@ import main.GamePanel;
 import main.KeyHandler;
 
 /**
- * Défintition du comportement d'un joueur
+ * DÃ©fintition du comportement d'un joueur
  *
  */
 public class Player extends Entity{
@@ -32,7 +32,7 @@ public class Player extends Entity{
 	}
 	
 	/**
-	 * Initialisation des données membres avec des valeurs par défaut
+	 * Initialisation des donnÃ©es membres avec des valeurs par dÃ©faut
 	 */
 	protected void setDefaultValues() {
 		m_x = 100;
@@ -41,7 +41,7 @@ public class Player extends Entity{
 	}
 	
 	/**
-	 * Récupération de l'image du personnage
+	 * RÃ©cupÃ©ration de l'image du personnage
 	 */
 	public void getPlayerImage() {
 		//gestion des expections 
@@ -53,7 +53,7 @@ public class Player extends Entity{
 	}
 	
 	/**
-	 * Mise à jour des données du joueur
+	 * Mise Ã  jour des donnÃ©es du joueur
 	 */
 	public void update() {
 		
@@ -62,13 +62,13 @@ public class Player extends Entity{
 	}
 	
 	/**
-	 * Affichage du l'image du joueur dans la fenêtre du jeu
+	 * Affichage du l'image du joueur dans la fenÃªtre du jeu
 	 * @param a_g2 Graphics2D 
 	 */
 	public void draw(Graphics2D a_g2) {
-		// récupère l'image du joueur
+		// rÃ©cupÃ¨re l'image du joueur
 		BufferedImage l_image = m_idleImage;
-		// affiche le personnage avec l'image "image", avec les coordonnées x et y, et de taille tileSize (16x16) sans échelle, et 48x48 avec échelle)
+		// affiche le personnage avec l'image "image", avec les coordonnÃ©es x et y, et de taille tileSize (16x16) sans Ã©chelle, et 48x48 avec Ã©chelle)
 		a_g2.drawImage(l_image, m_x, m_y, m_gp.TILE_SIZE, m_gp.TILE_SIZE, null);
 	}
 	

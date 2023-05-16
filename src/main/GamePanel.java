@@ -16,19 +16,19 @@ import java.awt.Graphics2D;
  */
 public class GamePanel extends JPanel implements Runnable{
 	
-	//Paramètres de l'écran
+	//ParamÃªtres de l'Ã©cran
 	final int ORIGINAL_TILE_SIZE = 16; 							// une tuile de taille 16x16
-	final int SCALE = 3; 										// échelle utilisée pour agrandir l'affichage
+	final int SCALE = 3; 										// Ã©chelle utilisÃ©e pour agrandir l'affichage
 	public final int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE; 	// 48x48
 	public final int MAX_SCREEN_COL = 16;
-	public final int MAX_SCREE_ROW = 12; 					 	// ces valeurs donnent une résolution 4:3
+	public final int MAX_SCREE_ROW = 12; 					 	// ces valeurs donnent une rÃ©solution 4:3
 	public final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL; // 768 pixels
 	public final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREE_ROW;	// 576 pixels
 
 	// FPS : taux de rafraichissement
 	int m_FPS;
 	
-	// Création des différentes instances (Player, KeyHandler, TileManager, GameThread ...)
+	// CrÃ©ation des diffÃ©rentes instances (Player, KeyHandler, TileManager, GameThread ...)
 	KeyHandler m_keyH;
 	Thread m_gameThread;
 	Player m_player;
@@ -65,10 +65,10 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		while(m_gameThread != null) { //Tant que le thread du jeu est actif
 			
-			//Permet de mettre à jour les différentes variables du jeu
+			//Permet de mettre Ã  jour les diffÃ©rentes variables du jeu
 			this.update();
 			
-			//Dessine sur l'écran le personnage et la map avec les nouvelles informations. la méthode "paintComponent" doit obligatoirement être appelée avec "repaint()"
+			//Dessine sur l'Ã©cran le personnage et la map avec les nouvelles informations. la mÃ©thode "paintComponent" doit obligatoirement Ãªtre appelÃ©e avec "repaint()"
 			this.repaint();
 			
 			//Calcule le temps de pause du thread
@@ -92,14 +92,14 @@ public class GamePanel extends JPanel implements Runnable{
 	
 
 	/**
-	 * Mise à jour des données des entités
+	 * Mise Ã  jour des donnÃ©es des entitÃ©s
 	 */
 	public void update() {
 		m_player.update();
 	}
 	
 	/**
-	 * Affichage des éléments
+	 * Affichage des Ã©lÃ©ments
 	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
