@@ -31,7 +31,7 @@ public abstract class MovingEntity extends Entity { // Classe des entités qui s
     }
 
     public void setSpeedY(int speedY) {
-        m_speedX = speedY;
+        m_speedY = speedY;
     }
 
     public int getDamage() {

@@ -2,7 +2,7 @@ package entity;
 
 import tile.TileManager;
 
-public class JumpBoots extends Entity {
+public class JumpBoots extends Entity implements Loot {
     
     public JumpBoots(int x, int y, String path, TileManager tm) {
         super(x,y,path,tm);

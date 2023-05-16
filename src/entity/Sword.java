@@ -2,7 +2,7 @@ package entity;
 
 import tile.TileManager;
 
-public class Sword extends Entity {
+public class Sword extends Entity implements Loot {
     
     public Sword(int x, int y, String path, TileManager tm) {
         super(x,y,path,tm);
