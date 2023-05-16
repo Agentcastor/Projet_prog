@@ -35,17 +35,25 @@ public class TileManager {
 		m_tile = new Tile[m_maxTiles];
 		m_mapTileNum = new int[gp.MAX_SCREEN_COL][gp.MAX_SCREE_ROW];
 		this.getTileImage();
-		this.loadMap("/maps/map2.txt");
-		if (n_bc == 0){
-		try{
-		background= ImageIO.read(getClass().getResource("/tiles/background.jfif"));
 		
+		if (n_bc == 0) { // selon le niveau
+			try{
+				background= ImageIO.read(getClass().getResource("/tiles/background.jfif"));
+				this.loadMap("/maps/map2.txt");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			try{
+				background= ImageIO.read(getClass().getResource("/tiles/background.jfif"));
+				this.loadMap("/maps/map.txt");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	}
+	} 
+
+	
 	
 	/**
 	 * Chargement de toutes les tuiles du jeu
@@ -123,7 +131,7 @@ public class TileManager {
 		int y = 0;
 		
 		
-        g2.drawImage(background,  0, 0, m_gp.SCREEN_WIDTH, m_gp.SCREEN_WIDTH, null);
+        g2.drawImage(background,  0, 0, m_gp.SCREEN_WIDTH, m_gp.SCREEN_HEIGHT, null);
 		
 	 
 		while (col < m_gp.MAX_SCREEN_COL && row < m_gp.MAX_SCREE_ROW) {

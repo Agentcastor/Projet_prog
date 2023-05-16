@@ -32,7 +32,9 @@ public class GamePanel extends JPanel implements Runnable{
 	KeyHandler m_keyH;
 	Thread m_gameThread;
 	Player m_player;
-	TileManager m_tileM;
+	TileManager[] m_tileM;
+	TileManager m_tileC ;
+	
 		
 	/**
 	 * Constructeur
@@ -41,7 +43,11 @@ public class GamePanel extends JPanel implements Runnable{
 		m_FPS = 60;				
 		m_keyH = new KeyHandler();
 		m_player = new Player(this, m_keyH);
-		m_tileM = new TileManager(this,0);
+		m_tileM = new TileManager[8]  ;
+		m_tileM[0] = new TileManager(this,0) ;
+		m_tileM[1] = new TileManager(this,1) ;
+		m_tileC = m_tileM[0] ;
+
 		
 		this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
 		this.setBackground(Color.black);
@@ -96,6 +102,10 @@ public class GamePanel extends JPanel implements Runnable{
 	 */
 	public void update() {
 		m_player.update();
+		if (m_keyH.code == 73) {
+			this.nextLevel();
+			m_keyH.code = - 1;
+		} 
 	}
 	
 	/**
@@ -104,9 +114,17 @@ public class GamePanel extends JPanel implements Runnable{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		m_tileM.draw(g2);
+		m_tileC.draw(g2);
 		m_player.draw(g2);
 		g2.dispose();
+	}
+
+	public void nextLevel() {
+		if (m_tileC == m_tileM[1]) {
+			m_tileC = m_tileM[0];
+		} else {
+			m_tileC = m_tileM[1] ;
+		}
 	}
 	
 }

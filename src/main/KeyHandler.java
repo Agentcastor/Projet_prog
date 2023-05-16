@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
  *
  */
 public class KeyHandler implements KeyListener{
+	public int code ;
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -17,7 +18,7 @@ public class KeyHandler implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// récupère le code du boutton appuyé
-		int code = e.getKeyCode();
+		code = e.getKeyCode();
 		System.out.println(code);
 	}
 
