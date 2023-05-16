@@ -1,7 +1,10 @@
 package tile;
 
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -21,17 +24,28 @@ public class TileManager {
 	Tile[] m_tile;			//tableau de toutes les tiles possibles dans le jeu
 	int m_maxTiles = 10;	//nombre maximum de tiles chargeable dans le jeu
 	int m_mapTileNum[][];	//répartition des tiles dans la carte du jeu
+	BufferedImage background;
 	
 	/**
 	 * Constructeur
 	 * @param gp
 	 */
-	public TileManager(GamePanel gp) {
+	public TileManager(GamePanel gp,int n_bc) {
 		this.m_gp =  gp;
 		m_tile = new Tile[m_maxTiles];
 		m_mapTileNum = new int[gp.MAX_SCREEN_COL][gp.MAX_SCREE_ROW];
 		this.getTileImage();
 		this.loadMap("/maps/map2.txt");
+		if (n_bc == 0){
+			System.out.print("test"+background);
+		try{
+		background= ImageIO.read(new File("/tiles/GRASS.png"));
+		
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	}
 	
 	/**
@@ -56,6 +70,9 @@ public class TileManager {
 			
 			m_tile[5] = new Tile();
 			m_tile[5].m_image = ImageIO.read(getClass().getResource("/tiles/SNOW.png"));
+
+			m_tile[6] = new Tile();
+			m_tile[6].m_image = ImageIO.read(getClass().getResource("/tiles/tiles_inv.png"));
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -106,6 +123,10 @@ public class TileManager {
 		int x = 0;
 		int y = 0;
 		
+		
+        g2.drawImage(background,  0, 0, m_gp.SCREEN_WIDTH, m_gp.SCREEN_WIDTH, null);
+		
+	 
 		while (col < m_gp.MAX_SCREEN_COL && row < m_gp.MAX_SCREE_ROW) {
 			int tileNum = m_mapTileNum[col][row];
 			
