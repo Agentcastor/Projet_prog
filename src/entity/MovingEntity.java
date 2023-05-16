@@ -87,10 +87,10 @@ public abstract class MovingEntity extends Entity { // Classe des entités qui s
         int y2 = getY() + 48;
 
         //collisions des tiles autour des entités
-        boolean colU = getTileMap().getTileCollision(xt,yt-1);
-        boolean colL = getTileMap().getTileCollision(xt-1,yt);
-        boolean colD = getTileMap().getTileCollision(xt,yt+1);
-        boolean colR = getTileMap().getTileCollision(xt+1,yt);
+        boolean colU = getTileMap().getTileCollision(xt,yt-1); //haut
+        boolean colL = getTileMap().getTileCollision(xt-1,yt); //gauche
+        boolean colD = getTileMap().getTileCollision(xt,yt+1); //bas
+        boolean colR = getTileMap().getTileCollision(xt+1,yt); //droite
 
         //bords des tiles
         //bord inf tileU : ((yt-1)*48)+24
