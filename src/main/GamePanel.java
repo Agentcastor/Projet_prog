@@ -44,7 +44,6 @@ public class GamePanel extends JPanel implements Runnable{
 		m_FPS = 60;				
 		m_keyH = new KeyHandler();
 		m_tileM = new TileManager[6];
-		m_player = new Player(this.m_tileC, m_keyH);
 		m_tileM[0] = new TileManager(this,0) ;
 		m_tileM[1] = new TileManager(this,1) ;
 		m_tileM[2] = new TileManager(this,2) ;
@@ -53,6 +52,7 @@ public class GamePanel extends JPanel implements Runnable{
 		m_tileM[5] = new TileManager(this,5) ;
 		compteur = 0 ;
 		m_tileC = m_tileM[compteur] ;
+		m_player = new Player(this.m_tileC, m_keyH);
 
 		
 		this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
