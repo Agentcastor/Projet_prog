@@ -2,16 +2,21 @@ package entity;
 
 import tile.TileManager;
 
-public class Bat extends MovingEntity implements Attacker {
+public class Bat extends LivingEntity implements Attacker {
 
     public Bat(int x, int y, TileManager tm) {
-        super(x, y, "", tm, 1, 1, 1);
+        super(x, y, "", tm, 1, 1, 1, 3);
     }
 
     @Override
     public void update() {
-
+        move();
+        if(isDead()) {
+            getTileMap().getListEntity().remove(this);
+            setTilemap(null);
+        }
     }
+
     @Override
     public void tilesCollisions() {
         // Pas de collision
