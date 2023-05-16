@@ -2,10 +2,8 @@ package entity;
 
 public class JumpBoots extends Entity {
     
-    public JumpBoots(int x, int y, String path) {
-        setX(x);
-        setY(y);
-        setImage(path);
+    public JumpBoots(int x, int y, String path, TileManager tm) {
+        super(x,y,path,tm);
     }
 
     public void onAdded() {

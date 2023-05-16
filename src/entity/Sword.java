@@ -1,11 +1,11 @@
 package entity;
 
+import tile.TileManager;
+
 public class Sword extends Entity {
     
-    public Sword(int x, int y, String path) {
-        setX(x);
-        setY(y);
-        setImage(path);
+    public Sword(int x, int y, String path, TileManager tm) {
+        super(x,y,path,tm);
     }
 
     public void onAdded() {
