@@ -10,6 +10,6 @@ public class Sword extends Entity {
 
     public void onAdded() {
         Player.getInstance().setDamage(Player.getInstance().getDamage() + 1); // Avantage de l'item
-        getTileMap().listEntity().remove(this); // On fait disparaître l'épée de la carte
+        getTileMap().getListEntity().remove(this); // On fait disparaître l'épée de la carte
     }
 }

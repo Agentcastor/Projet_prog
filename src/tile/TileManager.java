@@ -146,6 +146,10 @@ public class TileManager {
 		return m_tile[m_mapTileNum[x][y]].m_collision;
 	}
 	
+	public LinkedList<Entity> getListEntity() {
+		return listEntity;
+	}
+
 	/**
 	 * Affichage de la carte avec les diff�rentes tuiles
 	 * @param g2
