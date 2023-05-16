@@ -141,6 +141,10 @@ public class TileManager {
 			e.printStackTrace();
 		}
 	}
+	//dit si la tile x, y a des collisions 
+	public boolean getTileCollision(int x, int y){
+		return m_tile[m_mapTileNum[x][y]].m_collision;
+	}
 	
 	/**
 	 * Affichage de la carte avec les diff�rentes tuiles
