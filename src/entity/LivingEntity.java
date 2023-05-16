@@ -7,7 +7,7 @@ public class LivingEntity extends MovingEntity {
     private int m_life; // Vie de l'entité
     
     public LivingEntity(int x, int y, String path, TileManager tm, int speedX, int speedY, int damage, int life) {
-        super(x,y,path,tm,speedX, speedY, damage, life);
+        super(x,y,path,tm,speedX, speedY, damage);
         m_life = life;
     }
 

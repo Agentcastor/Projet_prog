@@ -156,7 +156,13 @@ public class Player extends LivingEntity implements Attacker {
 					if (entity instanceof Spike) { // Si c'est un pique
 						if (isVulnerable()) {
 							invulnerability = 1;
-							((Spike) entity).hit();
+							((Spike) entity).attack(this);
+						}
+					}
+					if (entity instanceof Spike) { // Si c'est un pique
+						if (isVulnerable()) {
+							invulnerability = 1;
+							((DynamicSpike) entity).attack(this);
 						}
 					}
 					if (entity instanceof Loot) { // Si c'est un item
