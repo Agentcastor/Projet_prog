@@ -19,6 +19,10 @@ public class Player extends Entity{
 	GamePanel m_gp;
 	KeyHandler m_keyH;
 	
+	int[] position ;
+	int[] direction ;
+	int vitesse ;
+
 	/**
 	 * Constructeur de Player
 	 * @param a_gp GamePanel, pannel principal du jeu
@@ -29,6 +33,9 @@ public class Player extends Entity{
 		this.m_keyH = a_keyH;
 		this.setDefaultValues();
 		this.getPlayerImage();
+
+		direction = new int[]{0,0};
+
 	}
 	
 	/**
@@ -56,8 +63,9 @@ public class Player extends Entity{
 	 * Mise à jour des données du joueur
 	 */
 	public void update() {
-		
+
 	}
+
 	
 	/**
 	 * Affichage du l'image du joueur dans la fenêtre du jeu

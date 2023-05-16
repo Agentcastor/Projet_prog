@@ -8,10 +8,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
+import entity.Entity;
 import main.GamePanel;
 
 /**
@@ -25,31 +27,50 @@ public class TileManager {
 	int m_maxTiles = 10;	//nombre maximum de tiles chargeable dans le jeu
 	int m_mapTileNum[][];	//répartition des tiles dans la carte du jeu
 	BufferedImage background;
+	LinkedList<Entity> listEntity;
 	
 	/**
 	 * Constructeur
 	 * @param gp
 	 */
 	public TileManager(GamePanel gp,int n_bc) {
+
 		this.m_gp =  gp;
 		m_tile = new Tile[m_maxTiles];
 		m_mapTileNum = new int[gp.MAX_SCREEN_COL][gp.MAX_SCREE_ROW];
 		this.getTileImage();
+
+		listEntity = new LinkedList<Entity>();
+		listEntity.add(gp.getPlayer());
 		
+		try{
 		if (n_bc == 0) { // selon le niveau
-			try{
-				background= ImageIO.read(getClass().getResource("/tiles/background.jfif"));
+				background= ImageIO.read(getClass().getResource("/tiles/background.png"));
 				this.loadMap("/maps/map2.txt");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} else {
-			try{
-				background= ImageIO.read(getClass().getResource("/tiles/background.jfif"));
+			
+		} else if (n_bc == 1)  {
+				background= ImageIO.read(getClass().getResource("/tiles/background.png"));
 				this.loadMap("/maps/map.txt");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			
+		} else if (n_bc == 2)  {
+			background= ImageIO.read(getClass().getResource("/tiles/background.png"));
+			this.loadMap("/maps/map3.txt");
+		
+		} else if (n_bc == 3)  {
+			background= ImageIO.read(getClass().getResource("/tiles/background.png"));
+			this.loadMap("/maps/map4.txt");
+		
+		} else if (n_bc == 4)  {
+			background= ImageIO.read(getClass().getResource("/tiles/background.png"));
+			this.loadMap("/maps/map5.txt");
+		
+		} else if (n_bc == 5)  {
+			background= ImageIO.read(getClass().getResource("/tiles/background.png"));
+			this.loadMap("/maps/map6.txt");
+		
+		}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	} 
 
@@ -60,25 +81,25 @@ public class TileManager {
 	 */
 	public void getTileImage() {
 		try {
-			m_tile[0] = new Tile();
+			m_tile[0] = new Tile(true);
 			m_tile[0].m_image = ImageIO.read(getClass().getResource("/tiles/GRASS.png"));
 			
-			m_tile[1] = new Tile();
+			m_tile[1] = new Tile(true);
 			m_tile[1].m_image = ImageIO.read(getClass().getResource("/tiles/BRICK2.png"));
 			
-			m_tile[2] = new Tile();
+			m_tile[2] = new Tile(true);
 			m_tile[2].m_image = ImageIO.read(getClass().getResource("/tiles/WATER.png"));
 			
-			m_tile[3] = new Tile();
+			m_tile[3] = new Tile(true);
 			m_tile[3].m_image = ImageIO.read(getClass().getResource("/tiles/LAVA.png"));
 			
-			m_tile[4] = new Tile();
+			m_tile[4] = new Tile(true);
 			m_tile[4].m_image = ImageIO.read(getClass().getResource("/tiles/SAND.png"));
 			
-			m_tile[5] = new Tile();
+			m_tile[5] = new Tile(true);
 			m_tile[5].m_image = ImageIO.read(getClass().getResource("/tiles/SNOW.png"));
 
-			m_tile[6] = new Tile();
+			m_tile[6] = new Tile(false);
 			m_tile[6].m_image = ImageIO.read(getClass().getResource("/tiles/tiles_inv.png"));
 			
 		} catch (IOException e) {

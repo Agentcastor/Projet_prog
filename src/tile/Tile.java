@@ -10,7 +10,7 @@ public class Tile {
 	public BufferedImage m_image;		//image
 	public boolean m_collision;			//début de gestion de collision entre éléments
 	
-	Tile(){
-		m_collision = false;
+	Tile(boolean b){
+		m_collision = b;
 	}
 }

@@ -34,6 +34,7 @@ public class GamePanel extends JPanel implements Runnable{
 	Player m_player;
 	TileManager[] m_tileM;
 	TileManager m_tileC ;
+	int compteur ;
 	
 		
 	/**
@@ -43,10 +44,15 @@ public class GamePanel extends JPanel implements Runnable{
 		m_FPS = 60;				
 		m_keyH = new KeyHandler();
 		m_player = new Player(this, m_keyH);
-		m_tileM = new TileManager[8]  ;
+		m_tileM = new TileManager[6]  ;
 		m_tileM[0] = new TileManager(this,0) ;
 		m_tileM[1] = new TileManager(this,1) ;
-		m_tileC = m_tileM[0] ;
+		m_tileM[2] = new TileManager(this,2) ;
+		m_tileM[3] = new TileManager(this,3) ;
+		m_tileM[4] = new TileManager(this,4) ;
+		m_tileM[5] = new TileManager(this,5) ;
+		compteur = 0 ;
+		m_tileC = m_tileM[compteur] ;
 
 		
 		this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -120,11 +126,14 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 
 	public void nextLevel() {
-		if (m_tileC == m_tileM[1]) {
-			m_tileC = m_tileM[0];
-		} else {
-			m_tileC = m_tileM[1] ;
-		}
+		compteur++;
+		if (compteur >= m_tileM.length) compteur = 0 ;
+		m_tileC = m_tileM[compteur];
+
+	}
+
+	public Player getPlayer() {
+		return m_player ;
 	}
 	
 }
