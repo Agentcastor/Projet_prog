@@ -37,9 +37,8 @@ public class TileManager {
 		this.getTileImage();
 		this.loadMap("/maps/map2.txt");
 		if (n_bc == 0){
-			System.out.print("test"+background);
 		try{
-		background= ImageIO.read(new File("/tiles/GRASS.png"));
+		background= ImageIO.read(getClass().getResource("/tiles/background.jfif"));
 		
 		}
 		catch (IOException e) {
