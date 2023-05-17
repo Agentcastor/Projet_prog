@@ -8,8 +8,8 @@ public class Sword extends Entity implements Loot {
         super(x,y,"../imgUI/sword.png",tm);
     }
 
-    public void onAdded() {
+    public boolean onAdded() {
         Player.getInstance().setDamage(Player.getInstance().getDamage() + 1); // Avantage de l'item
-        getTileMap().getListEntity().remove(this); // On fait disparaître l'épée de la carte
+        return true; // On fait disparaître l'épée de la carte
     }
 }

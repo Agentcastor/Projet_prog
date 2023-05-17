@@ -8,9 +8,9 @@ public class JumpBoots extends Entity implements Loot {
         super(x,y,"../entities/jumpBoots.png",tm);
     }
 
-    public void onAdded() {
+    public boolean onAdded() {
         Player.getInstance().setMaxJumpDistance(Player.getInstance().getMaxJumpDistance() + 20);; // Avantage de l'item
-        getTileMap().getListEntity().remove(this); // On fait disparaître l'item de la carte
+        return true; // On fait disparaître l'item de la carte
     }
 
 } 
