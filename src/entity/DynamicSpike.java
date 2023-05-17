@@ -14,11 +14,6 @@ public class DynamicSpike extends MovingEntity implements Attacker {
     public void attack(LivingEntity e) {
         e.setLife(e.getLife() - getDamage());
     }
-    
-    @Override 
-    public void tilesCollisions() {
-        // Pas de collision
-    }
 
     @Override 
     public void update() {

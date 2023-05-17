@@ -17,11 +17,6 @@ public class Bat extends LivingEntity implements Attacker {
         }
     }
 
-    @Override
-    public void tilesCollisions() {
-        // Pas de collision
-    }
-
     public void move () {
 		if (Player.getInstance().getX() < this.getX()) {
 			this.moveLeft();

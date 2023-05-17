@@ -156,17 +156,7 @@ public class Player extends LivingEntity implements Attacker {
 		tilesCollisions();
 		collisionEntity();
 	}
-	
-	/**
-	 * Affichage du l'image du joueur dans la fenêtre du jeu
-	 * @param a_g2 Graphics2D 
-	 */
-	public void draw(Graphics2D a_g2) {
-		// récupère l'image du joueur
-		BufferedImage l_image = getImage();
-		// affiche le personnage avec l'image "image", avec les coordonnées x et y, et de taille tileSize (16x16) sans échelle, et 48x48 avec échelle)
-		a_g2.drawImage(l_image, getX(), getY(), 48, 48, null);
-	}
+
 	
 	public static Player getInstance(){
 		return m_instance;

@@ -14,7 +14,7 @@ public abstract class MovingEntity extends Entity { // Classe des entités qui s
     private boolean onCeil;
 
     public MovingEntity(int x, int y, String path, TileManager tm, int speedX, int speedY, int damage){
-        super(x,y,path,tm);
+        super(x, y, path, tm);
         m_speedX = speedX;
         m_speedY = speedY;
         m_damage = damage;
@@ -128,12 +128,4 @@ public abstract class MovingEntity extends Entity { // Classe des entités qui s
         }
     }
 
-    /**
-	 * Mise à jour des données de l'entité
-	 */
-    public void update() {
-
-    }
-
-   
 }

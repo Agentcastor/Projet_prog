@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Color;
 import javax.swing.JPanel;
 
+import entity.Arrow;
+import entity.Entity;
 import entity.Player;
 import tile.TileManager;
 
@@ -45,6 +47,7 @@ public class GamePanel extends JPanel implements Runnable{
 		m_keyH = new KeyHandler();
 		m_tileM = new TileManager[6];
 		m_tileM[0] = new TileManager(this,0) ;
+		m_tileM[0].getListEntity().add(new Arrow(14*48, 7*48, m_tileM[0], true));
 		m_tileM[1] = new TileManager(this,1) ;
 		m_tileM[2] = new TileManager(this,2) ;
 		m_tileM[3] = new TileManager(this,3) ;
@@ -116,6 +119,9 @@ public class GamePanel extends JPanel implements Runnable{
 	 */
 	public void update() {
 		m_player.update();
+		for (Entity entity : m_tileC.getListEntity()) {
+			entity.update();
+		}
 		if (m_keyH.getCode() == 73) {
 			this.nextLevel();
 			m_player.setTilemap(m_tileC);
@@ -131,6 +137,9 @@ public class GamePanel extends JPanel implements Runnable{
 		Graphics2D g2 = (Graphics2D) g;
 		m_tileC.draw(g2);
 		m_player.draw(g2);
+		for (Entity entity : m_tileC.getListEntity()) {
+			entity.draw(g2);
+		}
 		g2.dispose();
 	}
 

@@ -1,20 +1,17 @@
 package entity;
 
-import java.awt.Image;
-
 import tile.TileManager;
 
 public class Arrow extends MovingEntity implements Attacker {
     private boolean m_left;
     public Arrow(int x , int y, TileManager tm, boolean left){
-        super(x,y,"",tm, 5,0,1);
+        super(x,y,"/tiles/arrowToLeft.png", tm, 4,0,1);
         if (left){
             m_left = true;
-            this.setImage("res/tiles/arrowtoLeft.png");
         }
         else {
             m_left = false;
-            this.setImage("res/tiles/arrowtoRight.png");
+            this.setImage("tiles/arrowtoRight.png");
         }  
     }
 
@@ -26,6 +23,7 @@ public class Arrow extends MovingEntity implements Attacker {
         }
         if (m_left) moveLeft();
         if (!m_left) moveRight();
+        tilesCollisions();
     }
 
     /**
