@@ -10,8 +10,8 @@ public abstract class MovingEntity extends Entity { // Classe des entités qui s
     private int m_damage; // Dégâts causés par l'entité
 
     //booléens de positions
-    private boolean onFloor;
-    private boolean onCeil;
+    protected boolean onFloor;
+    protected boolean onCeil;
 
     public MovingEntity(int x, int y, String path, TileManager tm, int speedX, int speedY, int damage){
         super(x, y, path, tm);

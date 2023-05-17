@@ -24,7 +24,7 @@ import main.GamePanel;
 public class TileManager {
 	GamePanel m_gp;			//panel du jeu principal
 	Tile[] m_tile;			//tableau de toutes les tiles possibles dans le jeu
-	int m_maxTiles = 10;	//nombre maximum de tiles chargeable dans le jeu
+	int m_maxTiles = 20;	//nombre maximum de tiles chargeable dans le jeu
 	int m_mapTileNum[][];	//répartition des tiles dans la carte du jeu
 	BufferedImage background;
 	LinkedList<Entity> listEntity;
@@ -54,19 +54,19 @@ public class TileManager {
 				this.loadMap("/maps/map.txt");
 			
 		} else if (n_bc == 2)  {
-			background= ImageIO.read(getClass().getResource("/tiles/background.png"));
+			background= ImageIO.read(getClass().getResource("/tiles/background_cave.png"));
 			this.loadMap("/maps/map3.txt");
 		
 		} else if (n_bc == 3)  {
-			background= ImageIO.read(getClass().getResource("/tiles/background.png"));
+			background= ImageIO.read(getClass().getResource("/tiles/background_cave.png"));
 			this.loadMap("/maps/map4.txt");
 		
 		} else if (n_bc == 4)  {
-			background= ImageIO.read(getClass().getResource("/tiles/background.png"));
+			background= ImageIO.read(getClass().getResource("/tiles/background_cave.png"));
 			this.loadMap("/maps/map5.txt");
 		
 		} else if (n_bc == 5)  {
-			background= ImageIO.read(getClass().getResource("/tiles/background.png"));
+			background= ImageIO.read(getClass().getResource("/tiles/background_lastroom.png"));
 			this.loadMap("/maps/map6.txt");
 		
 		}
@@ -82,30 +82,65 @@ public class TileManager {
 	 */
 	public void getTileImage() {
 		try {
-			m_tile[0] = new Tile(true);
+			m_tile[0] = new Tile(true,0);
 			m_tile[0].m_image = ImageIO.read(getClass().getResource("../tiles/GRASS.png"));
 			
-			m_tile[1] = new Tile(true);
+			m_tile[1] = new Tile(true,0);
 			m_tile[1].m_image = ImageIO.read(getClass().getResource("../tiles/bloc.png"));
 			
-			m_tile[2] = new Tile(true);
+			m_tile[2] = new Tile(true,0);
 			m_tile[2].m_image = ImageIO.read(getClass().getResource("../tiles/WATER.png"));
 			
-			m_tile[3] = new Tile(true);
+			m_tile[3] = new Tile(true,0);
 			m_tile[3].m_image = ImageIO.read(getClass().getResource("../tiles/LAVA.png"));
 			
-			m_tile[4] = new Tile(true);
+			m_tile[4] = new Tile(true,0);
 			m_tile[4].m_image = ImageIO.read(getClass().getResource("../tiles/SAND.png"));
 			
-			m_tile[5] = new Tile(true);
+			m_tile[5] = new Tile(true,0);
 			m_tile[5].m_image = ImageIO.read(getClass().getResource("../tiles/SNOW.png"));
 
-			m_tile[6] = new Tile(false);
+			m_tile[6] = new Tile(false,0);
 			m_tile[6].m_image = ImageIO.read(getClass().getResource("../tiles/tiles_inv.png"));
 			
-			m_tile[7] = new Tile(true);
+			m_tile[7] = new Tile(true,0);
 			m_tile[7].m_image = ImageIO.read(getClass().getResource("../tiles/tiles_inv.png"));
+
+			m_tile[8] = new Tile(true,1); // TP 1
+			m_tile[8].m_image = ImageIO.read(getClass().getResource("../tiles/tiles_inv.png"));
 			
+			m_tile[9] = new Tile(true,2); // TP 2
+			m_tile[9].m_image = ImageIO.read(getClass().getResource("../tiles/tiles_inv.png"));
+			
+			m_tile[10] = new Tile(true,3); // TP 3
+			m_tile[10].m_image = ImageIO.read(getClass().getResource("../tiles/tiles_inv.png"));
+
+			m_tile[11] = new Tile(true,4); // TP 4
+			m_tile[11].m_image = ImageIO.read(getClass().getResource("../tiles/tiles_inv.png"));
+
+			m_tile[12] = new Tile(true,5); // TP 5
+			m_tile[12].m_image = ImageIO.read(getClass().getResource("../tiles/tiles_inv.png"));
+						
+			m_tile[13] = new Tile(true,6); // TP 6
+			m_tile[13].m_image = ImageIO.read(getClass().getResource("../tiles/tiles_inv.png"));
+						
+			m_tile[14] = new Tile(true,7); // TP 7
+			m_tile[14].m_image = ImageIO.read(getClass().getResource("../tiles/tiles_inv.png"));
+						
+			m_tile[15] = new Tile(true,8); // TP 8
+			m_tile[15].m_image = ImageIO.read(getClass().getResource("../tiles/tiles_inv.png"));
+						
+			m_tile[16] = new Tile(true,9); // TP 9
+			m_tile[16].m_image = ImageIO.read(getClass().getResource("../tiles/tiles_inv.png"));
+						
+			m_tile[17] = new Tile(true,10); // TP 10
+			m_tile[17].m_image = ImageIO.read(getClass().getResource("../tiles/tiles_inv.png"));
+						
+			m_tile[18] = new Tile(true,11); // TP 11
+			m_tile[18].m_image = ImageIO.read(getClass().getResource("../tiles/tiles_inv.png"));
+
+			m_tile[19] = new Tile(true,12); // TP 12
+			m_tile[19].m_image = ImageIO.read(getClass().getResource("../tiles/tiles_inv.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -147,6 +182,11 @@ public class TileManager {
 	//dit si la tile x, y a des collisions 
 	public boolean getTileCollision(int x, int y){
 		return m_tile[m_mapTileNum[x][y]].m_collision;
+	}
+
+	// Retourne l'id de la Tile
+	public int getTileID(int x, int y){
+		return m_tile[m_mapTileNum[x][y]].m_id;
 	}
 	
 	public LinkedList<Entity> getListEntity() {

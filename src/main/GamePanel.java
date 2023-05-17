@@ -43,7 +43,6 @@ public class GamePanel extends JPanel implements Runnable{
 	Player m_player;
 	TileManager[] m_tileM;
 	TileManager m_tileC ;
-	int compteur ;
 	Hearts health ;
 	Strength strength_bar ;
 	
@@ -65,9 +64,8 @@ public class GamePanel extends JPanel implements Runnable{
 		m_tileM[3] = new TileManager(this,3) ;
 		m_tileM[4] = new TileManager(this,4) ;
 		m_tileM[5] = new TileManager(this,5) ;
-		compteur = 0 ;
-		m_tileC = m_tileM[compteur] ;
-		m_player = new Player(this.m_tileC, m_keyH);
+		m_tileC = m_tileM[0] ;
+		m_player = new Player(this.m_tileC, m_keyH, this);
 		health = new Hearts(0,0,m_player.getMaxLife(),this);
 		strength_bar = new Strength(0,TILE_SIZE/2,m_player.getDamage());
 
@@ -150,11 +148,6 @@ public class GamePanel extends JPanel implements Runnable{
 		for (Entity entity : m_tileC.getListEntity()) {
 			entity.update();
 		}
-		if (m_keyH.getCode() == 73) {
-			this.nextLevel();
-			m_player.setTilemap(m_tileC);
-			m_keyH.setCode(-1);
-		} 
 		health.update(m_player.getLife());
 		strength_bar.update(m_player.getDamage());
 	}
@@ -179,10 +172,70 @@ public class GamePanel extends JPanel implements Runnable{
 
 	}
 
-	public void nextLevel() {
-		compteur++;
-		if (compteur >= m_tileM.length) compteur = 0 ;
-		m_tileC = m_tileM[compteur];
+	/**
+	 * Modifie le niveau selon l'ID de la tile
+	 * @param ID
+	 */
+	public void nextLevel(int ID) {
+		if (ID == 1 ) {
+			m_tileC = m_tileM[1];
+			m_player.setTilemap(m_tileC);
+			m_player.setX(2*TILE_SIZE);
+		}
+		else if (ID == 2 ) {
+			m_tileC = m_tileM[0];
+			m_player.setTilemap(m_tileC);
+			m_player.setX(SCREEN_WIDTH - 2*TILE_SIZE);
+		} else if (ID == 3 ) {
+			m_tileC = m_tileM[2];
+			m_player.setTilemap(m_tileC);
+			m_player.setY(2*TILE_SIZE);
+		} 
+		else if (ID == 4) {
+			m_tileC = m_tileM[1];
+			m_player.setTilemap(m_tileC);
+			m_player.setY(SCREEN_HEIGHT - 2*TILE_SIZE);
+		}
+		else if (ID == 5) {
+			m_tileC = m_tileM[3];
+			m_player.setTilemap(m_tileC);
+			m_player.setX(SCREEN_WIDTH - 2*TILE_SIZE);
+		}
+		else if (ID == 6) {
+			m_tileC = m_tileM[2];
+			m_player.setTilemap(m_tileC);
+			m_player.setX( 2*TILE_SIZE);
+		}
+		else if (ID == 7) { 
+			m_tileC = m_tileM[4];
+			m_player.setTilemap(m_tileC);
+			m_player.setX( 2*TILE_SIZE);
+		}
+		else if (ID == 8 ) {
+			m_tileC = m_tileM[2];
+			m_player.setTilemap(m_tileC);
+			m_player.setX(SCREEN_WIDTH - 2*TILE_SIZE);
+		} 
+		else if (ID == 9 ) {
+			m_tileC = m_tileM[3];
+			m_player.setTilemap(m_tileC);
+			m_player.setX( 2*TILE_SIZE);
+		} 
+		else if (ID == 10 ) {
+			m_tileC = m_tileM[4];
+			m_player.setTilemap(m_tileC);
+			m_player.setX(SCREEN_WIDTH - 2*TILE_SIZE);
+		} else if (ID == 11 ) {
+			m_tileC = m_tileM[5];
+			m_player.setTilemap(m_tileC);
+			m_player.setY(SCREEN_HEIGHT - 2*TILE_SIZE);
+			m_player.setX(SCREEN_WIDTH - 2*TILE_SIZE);
+		} else if (ID == 12 ) {
+			m_tileC = m_tileM[4];
+			m_player.setTilemap(m_tileC);
+			m_player.setY( 2*TILE_SIZE);
+		} 
+		
 
 	}
 

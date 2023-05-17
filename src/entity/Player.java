@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
+import main.GamePanel;
 import main.KeyHandler;
 import tile.TileManager;
 
@@ -14,6 +15,7 @@ import tile.TileManager;
  */
 public class Player extends LivingEntity implements Attacker {
 	KeyHandler m_keyH;
+	private GamePanel m_gp ;
 	private boolean m_jumping; // true si le joueur est en train de sauter
 	private int m_jumpDistance; // Distance verticale parcourue dans un saut
 	private int m_maxJumpDistance; // Distance maximale verticale pouvant être parcourue dans un saut
@@ -44,7 +46,7 @@ public class Player extends LivingEntity implements Attacker {
 	 * @param tm Tilemanager, salle de jeu
 	 * @param a_keyH KeyHandler, gestionnaire des touches 
 	 */
-	public Player(TileManager tm, KeyHandler a_keyH) {
+	public Player(TileManager tm, KeyHandler a_keyH, GamePanel gp ) {
 		super(100, 100, "/Player/Gob_l0.png",tm, 4, 4,2, 6, 6);
 		this.m_keyH = a_keyH;
 		m_jumpDistance = 0;
@@ -55,6 +57,7 @@ public class Player extends LivingEntity implements Attacker {
 		Player.m_instance = this;
 		ori = false;
 		timer = 0;
+		m_gp = gp ;
 	}
 	
 	// Méthodes pour sauter
@@ -153,8 +156,8 @@ public class Player extends LivingEntity implements Attacker {
 	public void update() {
 		gravity();
 		mouvement();
-		tilesCollisions();
 		collisionEntity();
+		tilesCollisions();
 	}
 
 	
@@ -235,5 +238,70 @@ public class Player extends LivingEntity implements Attacker {
 			e.setLife(e.getLife()- getDamage()); // On retire la vie à la cible
 		}
 	}
+
+	//collisions avec les tiles
+	@Override
+    public void tilesCollisions(){
+        //coordonées dans le TileMap
+        int xt = (getX()+24)/48; //point central de l'entité mise dans les coordonées de la tile map
+        int yt = (getY()+24)/48;
+        //System.out.println(xt + ", " + yt);
+        //bords de l'entité 
+        int x1 = getX(); //gauche
+        int y1 = getY(); //haut
+        int x2 = getX() + 48; //droit
+        int y2 = getY() + 48;
+
+        //collisions des tiles autour des entités
+        boolean colU = getTileMap().getTileCollision(xt,yt-1); //haut
+        boolean colL = getTileMap().getTileCollision(xt-1,yt); //gauche
+        boolean colD = getTileMap().getTileCollision(xt,yt+1); //bas
+        boolean colR = getTileMap().getTileCollision(xt+1,yt); //droite
+
+		// Recuperation de l'ID des Tiles adjacentes
+		int idU = getTileMap().getTileID(xt,yt-1); //haut
+        int idL = getTileMap().getTileID(xt-1,yt); //gauche
+        int idD = getTileMap().getTileID(xt,yt+1); //bas
+        int idR = getTileMap().getTileID(xt+1,yt); //droite
+
+        //bords des tiles
+        //bord inf tileU : ((yt-1)*48)+24
+        int bu = ((yt-1)*48)+48;
+        int bl = ((xt-1)*48)+48;
+        int bd = ((yt+1)*48);
+        int br = ((xt+1)*48);
+
+        if(colU && y1 < bu){ //collision tete
+           setY(bu+1);
+           onCeil = true;
+           System.out.println("col haut");
+		   m_gp.nextLevel(idU);
+        }
+        else{
+            onCeil = false;
+        }
+
+        if(colL && x1 < bl){ //collision gauche
+            setX(bl+1);
+            System.out.println("col gauche");
+			m_gp.nextLevel(idL);
+        }
+
+        if(colD && y2 > bd){ //collision bas
+            setY(bd-49);
+            onFloor = true;
+            //System.out.println("col bas");
+			m_gp.nextLevel(idD);
+        }
+        else{
+            onFloor = false;
+        }
+
+        if(colR && x2 > br){ //collision droite
+            setX(br-49);
+            System.out.println("col droite");
+			m_gp.nextLevel(idR);
+        }
+    }
 
 }
