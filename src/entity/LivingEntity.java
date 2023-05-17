@@ -43,7 +43,6 @@ public class LivingEntity extends MovingEntity {
         //coordonées dans le TileMap
         int xt = (getX()+24)/48; //point central de l'entité mise dans les coordonées de la tile map
         int yt = (getY()+24)/48;
-        //System.out.println(xt + ", " + yt);
         //bords de l'entité 
         int x1 = getX(); //gauche
         int y1 = getY(); //haut
@@ -66,7 +65,6 @@ public class LivingEntity extends MovingEntity {
         if(colU && y1 < bu){ //collision tete
            setY(bu+1);
            setOnCeil(true);
-           System.out.println("col haut");
         }
         else{
             setOnCeil(false);
@@ -74,7 +72,6 @@ public class LivingEntity extends MovingEntity {
 
         if(colL && x1 < bl){ //collision gauche
             setX(bl+1);
-            System.out.println("col gauche");
         }
         if(colD && y2 > bd){ //collision bas
             setY(bd-49);
@@ -82,15 +79,12 @@ public class LivingEntity extends MovingEntity {
             if(getTileMap().getMapTileNum(xt, yt+1) == 3){
                 setLife(0);
             }
-            //System.out.println("col bas");
         }
         else{
             setOnFloor(false);
         }
-
         if(colR && x2 > br){ //collision droite
             setX(br-49);
-            System.out.println("col droite");
         }
     }
 
