@@ -45,7 +45,7 @@ public class Player extends LivingEntity implements Attacker {
 	 * @param a_keyH KeyHandler, gestionnaire des touches 
 	 */
 	public Player(TileManager tm, KeyHandler a_keyH) {
-		super(100, 100, "/Player/Gob_l0.png",tm, 6, 4,4, 0);
+		super(100, 100, "/Player/Gob_l0.png",tm, 4, 4,2, 6, 6);
 		this.m_keyH = a_keyH;
 		m_jumpDistance = 0;
 		m_maxJumpDistance = 40;

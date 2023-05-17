@@ -173,6 +173,8 @@ public class GamePanel extends JPanel implements Runnable{
 		for (Entity entity : m_tileC.getListEntity()) {
 			entity.draw(g2);
 		}
+		health.draw(g2);
+		strength_bar.draw(g2);
 		g2.dispose();
 
 	}

@@ -5,7 +5,7 @@ import tile.TileManager;
 public class Bat extends LivingEntity implements Attacker {
 
     public Bat(int x, int y, TileManager tm) {
-        super(x, y, "", tm, 1, 1, 1, 3);
+        super(x, y, "", tm, 2, 2, 1, 3, 3);
     }
 
     @Override
