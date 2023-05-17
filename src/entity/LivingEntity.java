@@ -7,8 +7,11 @@ public class LivingEntity extends MovingEntity {
     private int m_life; // Vie de l'entité
     private int maxLife ;
     
-    public LivingEntity(int x, int y, String path, TileManager tm, int speedX, int speedY, int damage, int life, int maxLife) {
-        super(x,y,path,tm,speedX, speedY, damage, life);
+
+
+    public LivingEntity(int x, int y, String path, TileManager tm, int speedX, int speedY, int damage, int life) {
+        super(x,y,path,tm,speedX, speedY, damage);
+
         m_life = life;
         this.maxLife = maxLife ;
     }

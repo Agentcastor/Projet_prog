@@ -42,7 +42,7 @@ public class TileManager {
 		this.getTileImage();
 
 		listEntity = new LinkedList<Entity>();
-		listEntity.add(gp.getPlayer());
+		//listEntity.add(gp.getPlayer());
 		
 		try{
 		if (n_bc == 0) { // selon le niveau

@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -59,6 +60,24 @@ public abstract class Entity {
 		}
 	}
 
+	
+	/**
+	 * Affichage du l'image du joueur dans la fenêtre du jeu
+	 * @param a_g2 Graphics2D 
+	 */
+	public void draw(Graphics2D a_g2) {
+		// récupère l'image de l'entite 
+		BufferedImage l_image = getImage();
+		// affiche le personnage avec l'image "image", avec les coordonnées x et y, et de taille tileSize (16x16) sans échelle, et 48x48 avec échelle)
+		a_g2.drawImage(l_image, getX(), getY(), 48, 48, null);
+	}
+	
+    /**
+	 * Mise à jour des données de l'entité
+	 */
+	public void update() {
+
+	}
 
 }
 

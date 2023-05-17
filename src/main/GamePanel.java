@@ -7,6 +7,8 @@ import java.awt.Color;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import entity.Arrow;
+import entity.Entity;
 import entity.Player;
 import tile.TileManager;
 import ui.Hearts;
@@ -57,6 +59,7 @@ public class GamePanel extends JPanel implements Runnable{
 		m_keyH = new KeyHandler();
 		m_tileM = new TileManager[6];
 		m_tileM[0] = new TileManager(this,0) ;
+		m_tileM[0].getListEntity().add(new Arrow(14*48, 7*48, m_tileM[0], true));
 		m_tileM[1] = new TileManager(this,1) ;
 		m_tileM[2] = new TileManager(this,2) ;
 		m_tileM[3] = new TileManager(this,3) ;
@@ -144,8 +147,12 @@ public class GamePanel extends JPanel implements Runnable{
 	 */
 	public void update() {
 		m_player.update();
+		for (Entity entity : m_tileC.getListEntity()) {
+			entity.update();
+		}
 		if (m_keyH.getCode() == 73) {
 			this.nextLevel();
+			m_player.setTilemap(m_tileC);
 			m_keyH.setCode(-1);
 		} 
 		health.update(m_player.getLife());
@@ -163,10 +170,8 @@ public class GamePanel extends JPanel implements Runnable{
         g2.setFont(font);
 		m_tileC.draw(g2);
 		m_player.draw(g2);
-		health.draw(g2);
-		strength_bar.draw(g2);
-		if (endGame) {
-			g2.drawImage(background_gameOver,  0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, null);
+		for (Entity entity : m_tileC.getListEntity()) {
+			entity.draw(g2);
 		}
 		g2.dispose();
 
