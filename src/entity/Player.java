@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
 import main.GamePanel;
+import sounds.Sounds;
 import main.KeyHandler;
 import tile.TileManager;
 
@@ -131,6 +132,8 @@ public class Player extends LivingEntity implements Attacker {
         if(getOnFloor()){
 			if(!m_jumping && j){// Si on appuie sur la touche espace et qu'on ne saute pas
 				m_jumping = true;
+				Sounds saut= new Sounds("/audio/saut.wav");
+				saut.run();
 			} 
 		} 
 		else {//on est pas au sol donc on tombe
@@ -158,6 +161,10 @@ public class Player extends LivingEntity implements Attacker {
 		mouvement();
 		collisionEntity();
 		tilesCollisions();
+
+		if (m_keyH.getCode() == 84) {
+			if (getLife() > 0) setLife(getLife()-1);
+		}
 	}
 
 	
