@@ -13,6 +13,8 @@ public abstract class MovingEntity extends Entity { // Classe des entités qui s
     private boolean onFloor;
     private boolean onCeil;
 
+
+
     public MovingEntity(int x, int y, String path, TileManager tm, int speedX, int speedY, int damage){
         super(x, y, path, tm);
         m_speedX = speedX;
@@ -44,6 +46,14 @@ public abstract class MovingEntity extends Entity { // Classe des entités qui s
 
     public boolean getOnCeil(){
         return onCeil;
+    }
+
+    public void setOnFloor(boolean onFloor) {
+        this.onFloor = onFloor;
+    }
+
+    public void setOnCeil(boolean onCeil) {
+        this.onCeil = onCeil;
     }
 
 

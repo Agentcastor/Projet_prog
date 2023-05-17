@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import entity.Entity;
+import entity.Lava;
 import main.GamePanel;
 
 /**
@@ -26,6 +27,8 @@ public class TileManager {
 	Tile[] m_tile;			//tableau de toutes les tiles possibles dans le jeu
 	int m_maxTiles = 10;	//nombre maximum de tiles chargeable dans le jeu
 	int m_mapTileNum[][];	//répartition des tiles dans la carte du jeu
+	
+
 	BufferedImage background;
 	LinkedList<Entity> listEntity;
 
@@ -75,7 +78,9 @@ public class TileManager {
 		}
 	} 
 
-	
+	public int getMapTileNum(int x, int y) {
+		return m_mapTileNum[x][y];
+	}
 	
 	/**
 	 * Chargement de toutes les tuiles du jeu
@@ -169,7 +174,6 @@ public class TileManager {
 	 
 		while (col < m_gp.MAX_SCREEN_COL && row < m_gp.MAX_SCREE_ROW) {
 			int tileNum = m_mapTileNum[col][row];
-			
 			g2.drawImage(m_tile[tileNum].m_image, x, y, m_gp.TILE_SIZE, m_gp.TILE_SIZE, null);
 			col ++;
 			x += m_gp.TILE_SIZE;

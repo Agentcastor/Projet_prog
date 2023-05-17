@@ -4,8 +4,8 @@ import tile.TileManager;
 
 public class Sword extends Entity implements Loot {
     
-    public Sword(int x, int y, String path, TileManager tm) {
-        super(x,y,path,tm);
+    public Sword(int x, int y, TileManager tm) {
+        super(x,y,"../imgUI/sword.png",tm);
     }
 
     public void onAdded() {
