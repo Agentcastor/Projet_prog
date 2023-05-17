@@ -118,6 +118,7 @@ public class GamePanel extends JPanel implements Runnable{
 		m_player.update();
 		if (m_keyH.getCode() == 73) {
 			this.nextLevel();
+			m_player.setTilemap(m_tileC);
 			m_keyH.setCode(-1);
 		} 
 	}
