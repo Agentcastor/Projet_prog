@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import entity.Arrow;
 import entity.Entity;
 import entity.Player;
+import sounds.Sounds;
 import tile.TileManager;
 import ui.Hearts;
 import ui.Strength;
@@ -112,7 +113,12 @@ public class GamePanel extends JPanel implements Runnable{
 			if (m_player.getLife() <= 0) {
 				endGame = true;
 			}
-			
+			if (endGame){
+				paintComponent2(getGraphics());
+				Sounds end= new Sounds("/audio/loose_song.wav");
+			end.run();
+			break;
+			}
 			//Permet de mettre a jour les differentes variables du jeu
 			this.update();
 			
@@ -175,10 +181,22 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 		health.draw(g2);
 		strength_bar.draw(g2);
+		if (endGame){
+		g2.drawImage(background_gameOver,  0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, null);
+		}
 		g2.dispose();
 
 	}
+	public void paintComponent2(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
 
+		if (endGame){
+		g2.drawImage(background_gameOver,  0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, null);
+		}
+		g2.dispose();
+
+	}
 	public void nextLevel() {
 		compteur++;
 		if (compteur >= m_tileM.length) compteur = 0 ;

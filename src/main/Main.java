@@ -2,6 +2,8 @@ package main;
 
 import javax.swing.JFrame;
 
+import sounds.Sounds;
+
 /**
  * 
  * Classe principale du jeu
@@ -25,6 +27,8 @@ public class Main {
 		
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
+		Sounds background= new Sounds("/audio/Music_background.wav");
+			background.run();
 		gamePanel.startGameThread();	
 
 	}
