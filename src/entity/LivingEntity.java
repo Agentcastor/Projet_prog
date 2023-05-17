@@ -5,10 +5,12 @@ import tile.TileManager;
 public class LivingEntity extends MovingEntity {
     
     private int m_life; // Vie de l'entité
+    private int maxLife ;
     
-    public LivingEntity(int x, int y, String path, TileManager tm, int speedX, int speedY, int damage, int life) {
+    public LivingEntity(int x, int y, String path, TileManager tm, int speedX, int speedY, int damage, int life, int maxLife) {
         super(x,y,path,tm,speedX, speedY, damage, life);
         m_life = life;
+        this.maxLife = maxLife ;
     }
 
     public int getLife() {
@@ -27,4 +29,7 @@ public class LivingEntity extends MovingEntity {
     public boolean isDead(){
         return m_life <= 0;
     }
+
+    public int getMaxLife() { return maxLife;}
+    public void setMaxLife(int maxLife) { this.maxLife = maxLife ;}
 }

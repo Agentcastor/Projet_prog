@@ -25,7 +25,7 @@ public class Player extends LivingEntity{
 	 * @param a_keyH KeyHandler, gestionnaire des touches 
 	 */
 	public Player(TileManager tm, KeyHandler a_keyH) {
-		super(100, 100, "/Player/superhero.png",tm, 6, 4,4, 0);
+		super(100, 100, "/Player/superhero.png",tm, 6, 4,4, 6,6);
 		this.m_keyH = a_keyH;
 		m_jumpDistance = 0;
 		m_maxJumpDistance = 40;
@@ -40,12 +40,6 @@ public class Player extends LivingEntity{
 		if(m_keyH.getCode() == 81){
 			moveLeft();
 		}
-		/* if(m_keyH.getCode() == 90){
-			moveUp();
-		}
-		if(m_keyH.getCode() == 83){
-			moveDown();
-		} */
 	}
 
     public void tombe(){
@@ -79,6 +73,11 @@ public class Player extends LivingEntity{
 		gravity();
 		mouvement();
 		tilesCollisions();
+
+		// TEMPORAIRE : Baisse d'un point de vie le joueur
+		if(m_keyH.getCode() == 84){
+			if (getLife() > 0) setLife(getLife()-1);
+		}
 	}
 	
 	/**

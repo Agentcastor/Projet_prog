@@ -1,14 +1,21 @@
 package main;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Color;
+
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import entity.Player;
 import tile.TileManager;
+import ui.Hearts;
+import ui.Strength;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 /**
  * Panel principal du jeu contenant la map principale
@@ -35,6 +42,11 @@ public class GamePanel extends JPanel implements Runnable{
 	TileManager[] m_tileM;
 	TileManager m_tileC ;
 	int compteur ;
+	Hearts health ;
+	Strength strength_bar ;
+	
+	BufferedImage background_gameOver ;
+	Boolean endGame;
 	
 		
 	/**
@@ -53,6 +65,8 @@ public class GamePanel extends JPanel implements Runnable{
 		compteur = 0 ;
 		m_tileC = m_tileM[compteur] ;
 		m_player = new Player(this.m_tileC, m_keyH);
+		health = new Hearts(0,0,m_player.getMaxLife(),this);
+		strength_bar = new Strength(0,TILE_SIZE/2,m_player.getDamage());
 
 		
 		this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -60,6 +74,13 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setDoubleBuffered(true);
 		this.addKeyListener(m_keyH);
 		this.setFocusable(true);
+
+		try {
+			background_gameOver = ImageIO.read(getClass().getResource("/imgUI/GameOver.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		endGame = false ;
 	}
 	
 	/**
@@ -84,12 +105,19 @@ public class GamePanel extends JPanel implements Runnable{
 		double nextDrawTime = System.nanoTime() + drawInterval; 
 		
 		while(m_gameThread != null) { //Tant que le thread du jeu est actif
+			// Fin du jeu
+			if (m_player.getLife() <= 0) {
+				endGame = true;
+			}
 			
-			//Permet de mettre � jour les diff�rentes variables du jeu
+			//Permet de mettre a jour les differentes variables du jeu
 			this.update();
 			
-			//Dessine sur l'�cran le personnage et la map avec les nouvelles informations. la m�thode "paintComponent" doit obligatoirement �tre appel�e avec "repaint()"
+			//Dessine sur l'ecran le personnage et la map avec les nouvelles informations. la m�thode "paintComponent" doit obligatoirement �tre appel�e avec "repaint()"
 			this.repaint();
+
+			
+
 			
 			//Calcule le temps de pause du thread
 			try {
@@ -120,6 +148,8 @@ public class GamePanel extends JPanel implements Runnable{
 			this.nextLevel();
 			m_keyH.setCode(-1);
 		} 
+		health.update(m_player.getLife());
+		strength_bar.update(m_player.getDamage());
 	}
 	
 	/**
@@ -128,9 +158,18 @@ public class GamePanel extends JPanel implements Runnable{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
+		Font font = new Font("Calibri", Font.BOLD, 20);
+		g2.setColor(Color.WHITE);
+        g2.setFont(font);
 		m_tileC.draw(g2);
 		m_player.draw(g2);
+		health.draw(g2);
+		strength_bar.draw(g2);
+		if (endGame) {
+			g2.drawImage(background_gameOver,  0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, null);
+		}
 		g2.dispose();
+
 	}
 
 	public void nextLevel() {
