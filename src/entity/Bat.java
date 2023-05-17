@@ -11,10 +11,6 @@ public class Bat extends LivingEntity implements Attacker {
     @Override
     public void update() {
         move();
-        if(isDead()) {
-            getTileMap().getListEntity().remove(this);
-            setTilemap(null);
-        }
     }
 
     public void move () {

@@ -112,11 +112,14 @@ public class Player extends LivingEntity implements Attacker {
 		}
 		if(m_keyH.getCode() == 32 ) {
 			tryToAttack();
+			
 		}
 	}
 
 	public void tryToAttack() {
 		if (canAttack) {
+			Sounds attack = new Sounds("/audio/bruit_epee3.wav");
+			attack.run();
 			if (ori) {
 				setImage("/Player/Gob_ar.png");
 			}
@@ -128,7 +131,6 @@ public class Player extends LivingEntity implements Attacker {
 					if((getX()-48 <= entity.getX()) && (entity.getX() <= getX() +48) && (getY()-48 <= entity.getY()) && (entity.getY() <= getY()+48)){
 						attack(((LivingEntity) entity));
 						canAttack = false;
-						System.out.println("Il attaque");
 					}
 				}
 			}
@@ -226,7 +228,7 @@ public class Player extends LivingEntity implements Attacker {
 			countDownDamage = 0; 
 		} else { 
 			countDownDamage++; // On diminue le temps restant d'invulnerabilite
-			if (countDownDamage >= 10) { // Le joueur peut reprendre des degats
+			if (countDownDamage >= 20) { // Le joueur peut reprendre des degats
 				invulnerability = 0;
 				countDownDamage = 0;
 			}
@@ -253,12 +255,16 @@ public class Player extends LivingEntity implements Attacker {
 						if (isVulnerable()) { // Si le joueur est vulnerable, on lui inflige un degat et on change sa valeur de invulnerability
 							invulnerability = 1;
 							((Arrow) entity).attack(this);
+							Sounds degat = new Sounds("/audio/degat_1.wav");
+							degat.run();
 						}
 					}
 					if (entity instanceof Spike) { // Si c'est un pique
 						if (isVulnerable()) {
 							invulnerability = 1;
 							((Spike) entity).attack(this);
+							Sounds degat = new Sounds("/audio/degat_1.wav");
+							degat.run();
 						}
 					}
 					
@@ -266,6 +272,8 @@ public class Player extends LivingEntity implements Attacker {
 						if (isVulnerable()) {
 							invulnerability = 1;
 							((Bat) entity).attack(this);
+							Sounds degat = new Sounds("/audio/degat_2.wav");
+							degat.run();
 						}
 					}
 					if (entity instanceof Loot) { // Si c'est un item
@@ -285,6 +293,8 @@ public class Player extends LivingEntity implements Attacker {
 	@Override
 	public void attack(LivingEntity e) {
 		e.setLife(e.getLife()- getDamage()); // On retire la vie à la cible
+		Sounds damage = new Sounds("/audio/degat_2.wav");
+		damage.run();
 	}
 
 	//collisions avec les tiles
@@ -338,7 +348,9 @@ public class Player extends LivingEntity implements Attacker {
         if(colD && y2 > bd){ //collision bas
             setY(bd-49);
             onFloor = true;
-            //System.out.println("col bas");
+			if(getTileMap().getMapTileNum(xt, yt+1) == 3){
+                setLife(0);
+            }
 			m_gp.nextLevel(idD);
         }
         else{

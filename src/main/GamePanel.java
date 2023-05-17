@@ -12,6 +12,7 @@ import entity.Bat;
 import entity.Entity;
 import entity.Heart;
 import entity.JumpBoots;
+import entity.LivingEntity;
 import entity.Player;
 import sounds.Sounds;
 import entity.Spike;
@@ -53,7 +54,9 @@ public class GamePanel extends JPanel implements Runnable{
 	Strength strength_bar ;
 	
 	BufferedImage background_gameOver ;
-	Boolean endGame;
+	BufferedImage background_victory ;
+	Boolean gameOver;
+	Boolean winGame;
 	
 		
 	/**
@@ -68,15 +71,16 @@ public class GamePanel extends JPanel implements Runnable{
 		m_tileM[1] = new TileManager(this,1) ;
 		m_tileM[1].getListEntity().add(new Sword(2*48, 5*48, m_tileM[1]));
 		m_tileM[2] = new TileManager(this,2) ;
+		m_tileM[2].getListEntity().add(new Bat(9*48, 4*48, m_tileM[2]));
 		m_tileM[3] = new TileManager(this,3) ;
-		m_tileM[3].getListEntity().add(new JumpBoots(48, 6*48, m_tileM[3]));
+		m_tileM[3].getListEntity().add(new JumpBoots(2*48, 6*48, m_tileM[3]));
+		m_tileM[3].getListEntity().add(new Arrow(14*48, 6*48, m_tileM[3], true));
 		m_tileM[4] = new TileManager(this,4) ;
 		m_tileM[5] = new TileManager(this,5) ;
 		m_tileM[5].getListEntity().add(new Heart(48, 8*48, m_tileM[5]));
 		m_tileM[5].getListEntity().add(new Bat(2*48, 2*48, m_tileM[5]));
 		m_tileM[5].getListEntity().add(new Bat(13*48, 5*48, m_tileM[5]));
 		m_tileM[5].getListEntity().add(new Spike(5*48, 8*48, m_tileM[5]));
-		m_tileM[5].getListEntity().add(new Arrow(1*48, 7*48, m_tileM[5], false));
 		m_tileC = m_tileM[0] ;
 		m_player = new Player(this.m_tileC, m_keyH, this);
 		health = new Hearts(0,0,m_player.getMaxLife(),this);
@@ -94,7 +98,13 @@ public class GamePanel extends JPanel implements Runnable{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		endGame = false ;
+		try {
+			background_victory = ImageIO.read(getClass().getResource("/imgUI/GameWin.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		gameOver = false ;
+		winGame = false ;
 	}
 	
 	/**
@@ -121,22 +131,28 @@ public class GamePanel extends JPanel implements Runnable{
 		while(m_gameThread != null) { //Tant que le thread du jeu est actif
 			// Fin du jeu
 			if (m_player.getLife() <= 0) {
-				endGame = true;
+				gameOver = true;
 			}
-			if (endGame){
+			if (m_tileC == m_tileM[5] && isClear()){
+				winGame = true;
+			}
+			if (gameOver){
 				paintComponent2(getGraphics());
 				Sounds end= new Sounds("/audio/loose_song.wav");
-			end.run();
-			break;
+				end.run();
+				break;
+			}
+			if (winGame) {
+				paintComponent2(getGraphics());
+				Sounds end = new Sounds("/audio/Victory_song_idee.wav");
+				end.run();
+				break;
 			}
 			//Permet de mettre a jour les differentes variables du jeu
 			this.update();
 			
 			//Dessine sur l'ecran le personnage et la map avec les nouvelles informations. la m�thode "paintComponent" doit obligatoirement �tre appel�e avec "repaint()"
 			this.repaint();
-
-			
-
 			
 			//Calcule le temps de pause du thread
 			try {
@@ -156,6 +172,15 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 		}
 	}
+
+	public boolean isClear() {
+		for (Entity entity : m_tileC.getListEntity()) {
+			if (entity instanceof LivingEntity) {
+				return false;
+			}
+		}
+		return true;
+	}
 	
 
 	/**
@@ -163,11 +188,23 @@ public class GamePanel extends JPanel implements Runnable{
 	 */
 	public void update() {
 		m_player.update();
+		Entity[] toRemove = new LivingEntity[10];
+		int i = 0;
 		for (Entity entity : m_tileC.getListEntity()) {
 			entity.update();
+			if (entity instanceof LivingEntity) {
+				if (((LivingEntity) entity).isDead()) {
+					toRemove[i] = entity;
+					i++;
+				}
+			}
 		}
 		health.update(m_player.getLife());
 		strength_bar.update(m_player.getDamage());
+		for (int j = 0; j < i ; j++) {
+			m_tileC.getListEntity().remove(toRemove[j]);
+		}
+
 	}
 	
 	/**
@@ -186,20 +223,20 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 		health.draw(g2);
 		strength_bar.draw(g2);
-		if (endGame){
-		g2.drawImage(background_gameOver,  0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, null);
-		}
-		g2.dispose();
 
 	}
 	public void paintComponent2(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		if (endGame){
+		if (gameOver){
 			g2.drawImage(background_gameOver,  0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, null);
-			}
-			g2.dispose();}
-
+			g2.dispose();
+		} else {
+			g2.drawImage(background_victory, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, null);
+			g2.dispose();
+		}
+		
+	}
 	/**
 	 * Modifie le niveau selon l'ID de la tile
 	 * @param ID
