@@ -22,24 +22,12 @@ public class DynamicSpike extends MovingEntity implements Attacker {
 
     @Override 
     public void update() {
-        if(isOutside()) { // si la fleche n'est plus dans la map
-            getTileMap().getListEntity().remove(this); // on l'enleve des entites de la salle
-            setTilemap(null);
-        }
         if(m_clock == 0) {
             moveUp();
             m_clock ++;
-        } else if (m_clock == 1) {
+        } else if (m_clock == 20) {
             moveDown();
         }
-    }
-
-    /**
-     * Dit si la fleche est sortie de la map
-     * @return vrai si la fleche est sortie de la map, faux sinon
-     */
-    public boolean isOutside(){
-        return this.getX() <= 0 || this.getX() >= 16*48 || this.getY() <= 0 || this.getY() >= 16*48;
     }
     
 }
