@@ -38,7 +38,7 @@ public class TileManager {
 
 		this.m_gp =  gp;
 		m_tile = new Tile[m_maxTiles];
-		m_mapTileNum = new int[gp.MAX_SCREEN_COL][gp.MAX_SCREE_ROW];
+		m_mapTileNum = new int[gp.MAX_SCREEN_COL + 2][gp.MAX_SCREE_ROW + 2];
 		this.getTileImage();
 
 		listEntity = new LinkedList<Entity>();
@@ -155,8 +155,8 @@ public class TileManager {
 	 * @param g2
 	 */
 	public void draw(Graphics2D g2) {
-		int col = 0;
-		int row = 0;
+		int col = 1;
+		int row = 1;
 		int x = 0;
 		int y = 0;
 		
@@ -164,7 +164,7 @@ public class TileManager {
         g2.drawImage(background,  0, 0, m_gp.SCREEN_WIDTH, m_gp.SCREEN_HEIGHT, null);
 		
 	 
-		while (col < m_gp.MAX_SCREEN_COL && row < m_gp.MAX_SCREE_ROW) {
+		while (col < m_gp.MAX_SCREEN_COL  && row < m_gp.MAX_SCREE_ROW ) {
 			int tileNum = m_mapTileNum[col][row];
 			
 			g2.drawImage(m_tile[tileNum].m_image, x, y, m_gp.TILE_SIZE, m_gp.TILE_SIZE, null);
