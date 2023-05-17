@@ -103,6 +103,9 @@ public class TileManager {
 			m_tile[6] = new Tile(false);
 			m_tile[6].m_image = ImageIO.read(getClass().getResource("../tiles/tiles_inv.png"));
 			
+			m_tile[7] = new Tile(true);
+			m_tile[7].m_image = ImageIO.read(getClass().getResource("../tiles/tiles_inv.png"));
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
