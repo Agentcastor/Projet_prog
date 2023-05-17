@@ -13,7 +13,7 @@ public abstract class MovingEntity extends Entity { // Classe des entités qui s
     private boolean onFloor;
     private boolean onCeil;
 
-    public MovingEntity(int x, int y, String path, TileManager tm, int life, int speedX, int speedY, int damage){
+    public MovingEntity(int x, int y, String path, TileManager tm, int speedX, int speedY, int damage){
         super(x,y,path,tm);
         m_speedX = speedX;
         m_speedY = speedY;
