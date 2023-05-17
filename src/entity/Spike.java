@@ -5,9 +5,9 @@ import tile.TileManager;
 public class Spike extends Entity implements Attacker {
 
     private int m_damage;
-    public Spike(int x, int y, String path, TileManager tm, int damage) {
-        super(x, y, path, tm);
-        m_damage = damage;
+    public Spike(int x, int y, TileManager tm) {
+        super(x, y, "../entities/spike.png", tm);
+        m_damage = 1;
     }
 
     @Override

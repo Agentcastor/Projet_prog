@@ -3,10 +3,14 @@ package entity;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.LinkedList;
 
 import main.GamePanel;
 import sounds.Sounds;
+import javax.imageio.ImageIO;
+
+import main.GamePanel;
 import main.KeyHandler;
 import tile.TileManager;
 
@@ -22,16 +26,16 @@ public class Player extends LivingEntity implements Attacker {
 	private int m_maxJumpDistance; // Distance maximale verticale pouvant être parcourue dans un saut
 	private int countDownDamage;
 	private int invulnerability;
-	private int rechargeAttackClock;
 	private static Player m_instance = null; // Singleton pour recuperer le joueur facilement dans toutes les classes
-	
-	//private int countDownDamage;
-	//private int invulnerability;
+
+	// attacks
+	private boolean canAttack;
+	private int countDownAttack;
 
 	//mouvements
-	private boolean r;
-	private boolean l;
-	private boolean j;
+	private boolean r; // right
+	private boolean l; // left
+	private boolean j; // jump
 
 
 	//animation 
@@ -54,7 +58,8 @@ public class Player extends LivingEntity implements Attacker {
 		m_maxJumpDistance = 40;
 		countDownDamage = 0;
 		invulnerability = 0;
-		rechargeAttackClock = 0;
+		canAttack = true;
+		countDownAttack = 0;
 		Player.m_instance = this;
 		ori = false;
 		timer = 0;
@@ -94,7 +99,7 @@ public class Player extends LivingEntity implements Attacker {
 			ori = false;
 			animL();
 		}
-		else{//ne bouge pas
+		else { //ne bouge pas
 			timer = 0;
 			il = 7;
 			ir = 7;
@@ -103,6 +108,35 @@ public class Player extends LivingEntity implements Attacker {
 			}
 			else{
 				setImage("/Player/Gob_l0.png");
+			}
+		}
+		if(m_keyH.getCode() == 32 ) {
+			tryToAttack();
+		}
+	}
+
+	public void tryToAttack() {
+		if (canAttack) {
+			if (ori) {
+				setImage("/Player/Gob_ar.png");
+			}
+			else {
+				setImage("/Player/Gob_al.png");
+			}
+			for (Entity entity : getTileMap().getListEntity()) {
+				if (entity instanceof LivingEntity) {
+					if((getX()-48 <= entity.getX()) && (entity.getX() <= getX() +48) && (getY()-48 <= entity.getY()) && (entity.getY() <= getY()+48)){
+						attack(((LivingEntity) entity));
+						canAttack = false;
+						System.out.println("Il attaque");
+					}
+				}
+			}
+		} else {
+			countDownAttack ++;
+			if (countDownAttack >= 20) { // Le joueur peut a nouveau attaquer 
+				countDownAttack = 0;
+				canAttack = true;
 			}
 		}
 	}
@@ -192,7 +226,7 @@ public class Player extends LivingEntity implements Attacker {
 			countDownDamage = 0; 
 		} else { 
 			countDownDamage++; // On diminue le temps restant d'invulnerabilite
-			if (countDownDamage >= 40) { // Le joueur peut reprendre des degats
+			if (countDownDamage >= 10) { // Le joueur peut reprendre des degats
 				invulnerability = 0;
 				countDownDamage = 0;
 			}
@@ -210,6 +244,8 @@ public class Player extends LivingEntity implements Attacker {
 
 	public void collisionEntity() {
 		LinkedList<Entity> entities = getTileMap().getListEntity(); // On recupere la liste des entités de la salle
+		Entity[] toRemove = new Entity[10];
+		int i = 0;
 		if (!(entities == null || entities.isEmpty())){ // On s assure de ne pas travailler dans une liste null ou vide
 			for(Entity entity : entities) { // On parcourt la liste pour agir pour chaque entity 
 				if (isInCollision(entity)) { // Fonction a developper
@@ -225,25 +261,30 @@ public class Player extends LivingEntity implements Attacker {
 							((Spike) entity).attack(this);
 						}
 					}
-					if (entity instanceof Spike) { // Si c'est un pique
+					
+					if (entity instanceof Bat) { // Si c'est un pique
 						if (isVulnerable()) {
 							invulnerability = 1;
-							((DynamicSpike) entity).attack(this);
+							((Bat) entity).attack(this);
 						}
 					}
 					if (entity instanceof Loot) { // Si c'est un item
-						((Loot) entity).onAdded();
+						if (((Loot) entity).onAdded()) {
+							toRemove[i] = entity;
+							i++;
+						}
 					}
 				}
 			}
+		}
+		for (int j = 0; j < i; j++) {
+			getTileMap().getListEntity().remove(toRemove[j]);
 		}
 	}
 
 	@Override
 	public void attack(LivingEntity e) {
-		if (rechargeAttackClock >= 3) { // Si le joueur peut taper
-			e.setLife(e.getLife()- getDamage()); // On retire la vie à la cible
-		}
+		e.setLife(e.getLife()- getDamage()); // On retire la vie à la cible
 	}
 
 	//collisions avec les tiles

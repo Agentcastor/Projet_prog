@@ -5,7 +5,7 @@ import tile.TileManager;
 public class Bat extends LivingEntity implements Attacker {
 
     public Bat(int x, int y, TileManager tm) {
-        super(x, y, "", tm, 2, 2, 1, 3, 3);
+        super(x, y, "../entities/bat.png", tm, 1, 1, 1, 3, 3);
     }
 
     @Override
@@ -25,10 +25,10 @@ public class Bat extends LivingEntity implements Attacker {
 			this.moveRight();
 		} 
 		if (Player.getInstance().getY() < this.getY()) {
-			this.moveDown();
+			this.moveUp();
 		}
 		if (Player.getInstance().getY() > this.getY()) {
-			this.moveUp();
+			this.moveDown();
 		}
     }
 
